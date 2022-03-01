@@ -47,32 +47,32 @@ In the included config.lua, you will find 3 predefined shops that help you move 
 
 ### Shops
 
-| Key         | Definition                                                                                                |
-| ----------- | --------------------------------------------------------------------------------------------------------- |
-| shopName    | **string** This is the display name of the shop                                                           |
-| coords      | **vector3** These are the coordinates of the shop itself                                                  |
-| sellJob     | **string[]** The name of the jobs that can access the shop's sell tab (can be multiple jobs in a table)   |
-| sellOnly    | **boolean** If true, the shop will only sell items. It is recommended to use with `infinite = true`       |
-| infinite    | **boolean** If true, the shop ignores the storage and will sell and buy infinite amount of items          |
-| blip        | **table** This is the definition of the shop blip. Set this as `nil` if you don't want to add a blip      |
-|             | _color_: **number** The color of the blip                                                                 |
-|             | _sprite_: **number** The sprite of the blip                                                               |
-|             | _scale_: **number** The scale of the blip                                                                 |
-| cashierPed  | **table** This is the definition of the cashier Ped. Set this as `nil` if you don't want to add a cashier |
-|             | _ped_: **string** Ped model Id                                                                            |
-|             | _coords_: **vector3** These are the coordinates of the cashier Ped                                        |
-|             | _heading_: **number** This is the heading of the cashier Ped                                              |
-| paymentType | **number** This is the payment type selector for the shop                                                 |
-| iItems      | **table** This is the table for the shop items. See below                                                 |
+| Key         | Definition                                                                                                  |
+| ----------- | ----------------------------------------------------------------------------------------------------------- |
+| shopName    | **(string)** This is the display name of the shop                                                           |
+| coords      | **(vector3)** These are the coordinates of the shop itself                                                  |
+| sellJob     | **(string[])** The name of the jobs that can access the shop's sell tab (can be multiple jobs in a table)   |
+| sellOnly    | **(boolean)** If true, the shop will only sell items. It is recommended to use with `infinite = true`       |
+| infinite    | **(boolean)** If true, the shop ignores the storage and will sell and buy infinite amount of items          |
+| blip        | **(table)** This is the definition of the shop blip. Set this as `nil` if you don't want to add a blip      |
+|             | _color_: **(number)** The color of the blip                                                                 |
+|             | _sprite_: **(number)** The sprite of the blip                                                               |
+|             | _scale_: **(number)** The scale of the blip                                                                 |
+| cashierPed  | **(table)** This is the definition of the cashier Ped. Set this as `nil` if you don't want to add a cashier |
+|             | _ped_: **(string)** Ped model Id                                                                            |
+|             | _coords_: **(vector3)** These are the coordinates of the cashier Ped                                        |
+|             | _heading_: **(number)** This is the heading of the cashier Ped                                              |
+| paymentType | **(number)** This is the payment type selector for the shop                                                 |
+| iItems      | **(table)** This is the table for the shop items. See below                                                 |
 
 ### Items
 
-| Key       | Definition                                                                                                 |
-| --------- | ---------------------------------------------------------------------------------------------------------- |
-| label     | **string** The display name of the item                                                                    |
-| buyPrice  | **number** The amount of money players can buy from this shop                                              |
-| maxCount  | **number** Maximum amount of items the shop can store. Ignored if `infinite=true` in the shop's definition |
-| sellPrice | **number** The amount of money players can sell to this shop                                               |
+| Key       | Definition                                                                                                   |
+| --------- | ------------------------------------------------------------------------------------------------------------ |
+| label     | **(string)** The display name of the item                                                                    |
+| buyPrice  | **(number)** The amount of money players can buy from this shop                                              |
+| maxCount  | **(number)** Maximum amount of items the shop can store. Ignored if `infinite=true` in the shop's definition |
+| sellPrice | **(number)** The amount of money players can sell to this shop                                               |
 
 ## Usage
 
