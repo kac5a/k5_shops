@@ -119,8 +119,15 @@ AddEventHandler("k5_shops:sellItems", function(data)
 	local cantCarry = false
 	local shopItemCount = loadShop(data.shopName)
 	local account = nil
+	local isInJobs = false
 
-	if Config.Shops[data.shopName].sellJob == nil or (xPlayer.job and xPlayer.job.name == Config.Shops[data.shopName].sellJob) then
+	if Config.Shops[data.shopName].sellJob ~= nil then
+		for k, v in pairs(Config.Shops[data.shopName].sellJob) do
+			if v == xPlayer.job.name then isInJobs = true end
+		end
+	end
+
+	if Config.Shops[data.shopName].sellJob == nil or isInJobs then
 		if data.paymentType == 1 then
 			account = "money"
 		elseif data.paymentType == 2 then
@@ -134,8 +141,8 @@ AddEventHandler("k5_shops:sellItems", function(data)
 				xPlayer.addAccountMoney(account, v.amount * v.price)
 				shopItemCount[v.name].count = shopItemCount[v.name].count + v.amount
 			end
-		elseif xPlayer.job.name == Config.Shops[data.shopName].sellJob then
-			TriggerEvent("esx_addonaccount:getSharedAccount", "society_"..Config.Shops[data.shopName].sellJob, function(account)
+		elseif isInJobs then
+			TriggerEvent("esx_addonaccount:getSharedAccount", "society_"..xPlayer.job.name, function(account)
 				if account ~= nil then
 					for k, v in pairs(data.payData) do
 						xPlayer.removeInventoryItem(v.name, v.amount)

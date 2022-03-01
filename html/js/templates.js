@@ -6,25 +6,64 @@ var sellMenu = `<div id="sellmenu" class="menu-element">
               <i class="fa-solid fa-hand-holding-dollar"></i>
               ${locale[lang].sellMenu}
             </div>`
-const genCard = (id, name, label, count, maxCount, price, inventoryCount, type, infinite, accountType) => {
+const genCard = (
+  id,
+  name,
+  label,
+  count,
+  maxCount,
+  price,
+  inventoryCount,
+  type,
+  infinite,
+  accountType
+) => {
   return `<div class="card-container">
-                  <div class="card-background ${accountType == 3 ? "blackmoney" : ""}">
+                  <div class="card-background ${
+                    accountType == 3 ? 'blackmoney' : ''
+                  }">
                     <div class="product-image">
                       <img src="img/${name}.png" />
                     </div>
                     <div class="product-data">
-                      <div class="product-name ${accountType == 3 ? "blackmoney" : ""}">${label}</div>
+                      <div class="product-name ${
+                        accountType == 3 ? 'blackmoney' : ''
+                      }">${label}</div>
                       <div class="product-count">
-                        <div class="price-count-current">${!infinite ? count + locale[lang].countUnit : ""}</div>
-                        <div class="price-count-max">${!infinite ? locale[lang].maxName + maxCount : ""}</div>
+                        <div class="price-count-current">${
+                          !infinite ? count + locale[lang].countUnit : ''
+                        }</div>
+                        <div class="price-count-max">${
+                          !infinite ? locale[lang].maxName + maxCount : ''
+                        }</div>
                       </div>
-                      <div class="product-price ${accountType == 3 ? "blackmoney" : ""}">${price}${locale[lang].moneyUnit}</div>
+                      <div class="product-price ${
+                        accountType == 3 ? 'blackmoney' : ''
+                      }">${price}${locale[lang].moneyUnit}</div>
                       <div class="product-buy">
-                        <div class="buy-button buy-minus ${type === "buy" ? count === 0 && !infinite ? "disabled" : "" : (inventoryCount === 0 || (count === maxCount && !infinite))  ? "disabled" : ""}" data-product="${name}" data-id="${id}">
+                        <div class="buy-button buy-minus ${
+                          type === 'buy'
+                            ? count === 0 && !infinite
+                              ? 'disabled'
+                              : ''
+                            : inventoryCount === 0 ||
+                              (count === maxCount && !infinite)
+                            ? 'disabled'
+                            : ''
+                        }" data-product="${name}" data-id="${id}">
                           <i class="fa-solid fa-minus"></i>
                         </div>
                         <input
-                          class="product-price-input ${type === "buy" ? count === 0 && !infinite ? "disabled" : "" : (inventoryCount === 0 || (count === maxCount && !infinite)) ? "disabled" : ""}"
+                          class="product-price-input ${
+                            type === 'buy'
+                              ? count === 0 && !infinite
+                                ? 'disabled'
+                                : ''
+                              : inventoryCount === 0 ||
+                                (count === maxCount && !infinite)
+                              ? 'disabled'
+                              : ''
+                          }"
                           value="0"
                           data-product="${name}"
                           data-id="${id}"
@@ -32,7 +71,16 @@ const genCard = (id, name, label, count, maxCount, price, inventoryCount, type, 
                           name="count"
                           id="input-${name}"
                         />
-                        <div class="buy-button buy-plus ${type === "buy" ? count === 0 && !infinite ? "disabled" : "" : (inventoryCount === 0 || (count === maxCount && !infinite)) ? "disabled" : ""}" data-product="${name}" data-id="${id}">
+                        <div class="buy-button buy-plus ${
+                          type === 'buy'
+                            ? count === 0 && !infinite
+                              ? 'disabled'
+                              : ''
+                            : inventoryCount === 0 ||
+                              (count === maxCount && !infinite)
+                            ? 'disabled'
+                            : ''
+                        }" data-product="${name}" data-id="${id}">
                           <i class="fa-solid fa-plus"></i>
                         </div>
                       </div>

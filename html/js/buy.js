@@ -5,22 +5,32 @@ const setUpBuyPage = () => {
   $('.grid').html('')
 
   //Generate grid cards
-  Object.keys(data.items).forEach((key, i) => {
-    $('.grid').append(
-      genCard(
-        i,
-        key,
-        data.items[key].label,
-        data.items[key].count,
-        data.items[key].maxCount,
-        data.items[key].buyPrice,
-        data.items[key].inventoryCount,
-        'buy',
-        data.infinite,
-        data.paymentType
+  Object.keys(data.items)
+    .sort(function (a, b) {
+      if (a < b) {
+        return -1
+      }
+      if (a > b) {
+        return 1
+      }
+      return 0
+    })
+    .forEach((key, i) => {
+      $('.grid').append(
+        genCard(
+          i,
+          key,
+          data.items[key].label,
+          data.items[key].count,
+          data.items[key].maxCount,
+          data.items[key].buyPrice,
+          data.items[key].inventoryCount,
+          'buy',
+          data.infinite,
+          data.paymentType
+        )
       )
-    )
-  })
+    })
 
   getCartData()
   $('.details').html(genCartBuy(cartData))
@@ -43,14 +53,13 @@ const setUpBuyPage = () => {
 
   $('.buy-plus').on('click', function () {
     let productName = $(this).data('product')
-    if (data.infinite){
+    if (data.infinite) {
       let oldValue = cartData[productName].count
       let newValue = parseInt(oldValue) + 1
       $(`.product-price-input[data-product="${productName}"]`).val(newValue)
       cartData[productName].count = newValue
       $('.details').html(genCartBuy(cartData))
       setBuyButton()
-
     } else if (cartData[productName].dbCount > 0) {
       let oldValue = cartData[productName].count
 
@@ -65,13 +74,13 @@ const setUpBuyPage = () => {
     }
   })
 
-  $('.product-price-input').on('input', function(){
+  $('.product-price-input').on('input', function () {
     let productName = $(this).data('product')
 
     $(this).val(Math.round($(this).val()))
 
     if (data.infinite) {
-      if($(this).val() < 0 ) {
+      if ($(this).val() < 0) {
         $(this).val(0)
       }
 
@@ -79,10 +88,10 @@ const setUpBuyPage = () => {
       $('.details').html(genCartBuy(cartData))
       setBuyButton()
     } else {
-      if($(this).val() > cartData[productName].dbCount) {
+      if ($(this).val() > cartData[productName].dbCount) {
         $(this).val(cartData[productName].dbCount)
       }
-      if($(this).val() < 0 ) {
+      if ($(this).val() < 0) {
         $(this).val(0)
       }
       cartData[productName].count = $(this).val()
@@ -90,42 +99,44 @@ const setUpBuyPage = () => {
       setBuyButton()
     }
   })
-
-  
 }
 
 const setBuyButton = () => {
   $('#pay-button').html(locale[lang].buyButton)
-  $("#pay-button").unbind()
+  $('#pay-button').unbind()
   $('#pay-button').on('click', function () {
     openModal(
       locale[lang].buyTitle,
       locale[lang].buyQuestion,
-      function() {
+      function () {
         let payData = Object.keys(cartData)
-        .filter((key) => cartData[key].count > 0)
-        .map((key) => ({
-          name: key,
-          amount: cartData[key].count,
-          price: cartData[key].buyPrice
-        }))
+          .filter((key) => cartData[key].count > 0)
+          .map((key) => ({
+            name: key,
+            amount: cartData[key].count,
+            price: cartData[key].buyPrice,
+          }))
         let totalPrice = 0
         Object.keys(cartData).forEach((key) => {
           totalPrice += cartData[key].buyPrice * cartData[key].count
         })
-    
-        if (payData.length){ 
-          $.post('https://k5_shops/action', JSON.stringify({
-            action: "buyItems",
-            data: {
-              shopName: data.shopId,
-              price: totalPrice,
-              paymentType: data.paymentType,
-              payData: payData,
-            }}));
-        }else{
-            openModal(locale[lang].error, locale[lang].emptyCart)
-        } 
+
+        if (payData.length) {
+          $.post(
+            'https://k5_shops/action',
+            JSON.stringify({
+              action: 'buyItems',
+              data: {
+                shopName: data.shopId,
+                price: totalPrice,
+                paymentType: data.paymentType,
+                payData: payData,
+              },
+            })
+          )
+        } else {
+          openModal(locale[lang].error, locale[lang].emptyCart)
+        }
       },
       closeModal,
       locale[lang].yes,

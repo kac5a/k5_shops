@@ -28,7 +28,18 @@ Citizen.CreateThread(function()
                 sleep = 1
                 DrawText3D(v.coords[1], v.coords[2], v.coords[3]," ~w~[~y~E~w~] "..v.shopName)
                 if IsControlJustReleased(0, 38) then
-                    if v.sellOnly and v.sellJob ~= nil and v.sellJob ~= ESX.PlayerData.job.name then
+                    local userJob = ESX.PlayerData.job.name
+                    local isInJobs = false
+                    
+                    if v.sellJob ~= nil then
+                        for k, v in pairs(v.sellJob) do
+                            if v.sellJob == userJob then
+                                isInJobs = true
+                            end
+                        end
+                    end
+
+                    if v.sellOnly and v.sellJob ~= nil and not isInJobs then
                         ESX.ShowNotification(Config.Locales[Config.Locale].IncorrectJob)
                     else
                         ESX.TriggerServerCallback('k5_shops:getInitalData', function(open, shopData, itemsWithInventoryCount, playerJob)
