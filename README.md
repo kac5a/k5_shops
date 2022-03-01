@@ -89,6 +89,7 @@ Images are stored in `html/img`
 
 Each shop has a logo at the top left corner. This image has to be PNG and has to have the same name as the key of every shop.
 ![Config and logo image relation](https://i.imgur.com/cwbSH0F.png)
+
 The products has to have the same name as the key of the items in the items table. These images have to be PNG.
 ![Config and image relation](https://i.imgur.com/8xxX7VQ.png)
 
