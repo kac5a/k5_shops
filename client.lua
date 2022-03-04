@@ -9,7 +9,16 @@ Citizen.CreateThread(function()
 		Citizen.Wait(0)
 	end
 
+	while not ESX.GetPlayerData().job do
+		Citizen.Wait(10)
+	end
+
 	ESX.PlayerData = ESX.GetPlayerData()
+end)
+
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function(xPlayer)
+	ESX.PlayerData = xPlayer
 end)
 
 RegisterNetEvent('esx:setJob')
