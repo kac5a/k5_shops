@@ -42,7 +42,7 @@ Citizen.CreateThread(function()
                     
                     if v.sellJob ~= nil then
                         for k, v in pairs(v.sellJob) do
-                            if v.sellJob == userJob then
+                            if v == userJob then
                                 isInJobs = true
                             end
                         end
