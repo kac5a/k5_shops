@@ -7,10 +7,10 @@ const setUpBuyPage = () => {
   //Generate grid cards
   Object.keys(data.items)
     .sort(function (a, b) {
-      if (a < b) {
+      if (data.items[a].label < data.items[b].label) {
         return -1
       }
-      if (a > b) {
+      if (data.items[a].label > data.items[b].label) {
         return 1
       }
       return 0
