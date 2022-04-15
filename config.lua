@@ -55,7 +55,7 @@ Config.Shops = {
     },
     ['burgershot'] = {
         shopName = "BurgerShot",
-        sellJob = 'burgershot', -- The name of the job that can access this shop's sell option. Money goes to the society
+        sellJob = {'burgershot'}, -- The name of the jobs that can access this shop's sell option. Money goes to the society
         coords = vector3(-1195.2030029297, -892.11022949219, 13.995241165161),
         blip = {
             color = 75,
