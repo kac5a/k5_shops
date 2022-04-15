@@ -23,12 +23,12 @@ To use this script, you need to edit the configuration to fit your needs.
 
 ```
 cd resources
-git clone https://github.com/k5scripts/k5_shops [scripts]/k5_shops
+git clone https://github.com/kac5a/k5_shops.git [scripts]/k5_shops
 ```
 
 ### Manually
 
-- Download [https://github.com/k5scripts/k5_shops](https://github.com/k5scripts/k5_shops)
+- Download [https://github.com/k5scripts/k5_shops](https://github.com/kac5a/k5_shops)
 - Put it in your resources directory
 
 ### Installation
