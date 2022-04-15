@@ -6,10 +6,11 @@ local loadedPeds = {}
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+        ESX.PlayerData = ESX.GetPlayerData()
 		Citizen.Wait(0)
 	end
 
-	while not ESX.GetPlayerData().job do
+    while not ESX.GetPlayerData().job do
 		Citizen.Wait(10)
 	end
 
