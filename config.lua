@@ -26,6 +26,11 @@ Config.Shops = {
                             --2 = bank 
                             --3 = black money
         items = {
+            -------------------------------------------------------------
+            -- MAKE SURE EACH ITEM IS REGISTERED IN YOUR INVENTORY SYSTEM,
+            -- OTHERWISE THE SCRIPT WON'T WORK PROPERLY !!
+            -------------------------------------------------------------
+
             ['lighter'] = {        -- Unique identifier of the product. This is the item id that you use in your database for the items. Images has to have the same name as this id.
                 label = "Lighter", -- Item label
                 buyPrice = 600,    -- The price players can buy this item
