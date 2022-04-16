@@ -12,11 +12,15 @@ ESX.RegisterServerCallback('k5_shops:getInitalData', function(source, cb, shopNa
 		local shopItemCount = loadShop(shopName)
 		local itemsWithInventoryCount = Config.Shops[shopName].items
 		for k, v in pairs(itemsWithInventoryCount) do
-			itemsWithInventoryCount[k].inventoryCount = xPlayer.getInventoryItem(k).count
-			if shopItemCount[k] ~= nil then
-				itemsWithInventoryCount[k].count = shopItemCount[k].count
+			if xPlayer.getInventoryItem(k) then
+				itemsWithInventoryCount[k].inventoryCount = xPlayer.getInventoryItem(k).count
+				if shopItemCount[k] ~= nil then
+					itemsWithInventoryCount[k].count = shopItemCount[k].count
+				else
+					itemsWithInventoryCount[k].count = 0
+				end
 			else
-				itemsWithInventoryCount[k].count = 0
+				print("^8ERROR: ^7This item is not registered in your inventory: ^3"..k.."^7")
 			end
 		end
 		cb(true, Config.Shops[shopName], itemsWithInventoryCount, xPlayer.job.name)
