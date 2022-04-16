@@ -63,7 +63,7 @@ In the included config.lua, you will find 3 predefined shops that help you move 
 |             | _coords_: **(vector3)** These are the coordinates of the cashier Ped                                        |
 |             | _heading_: **(number)** This is the heading of the cashier Ped                                              |
 | paymentType | **(number)** This is the payment type selector for the shop                                                 |
-| iItems      | **(table)** This is the table for the shop items. See below                                                 |
+| items       | **(table)** This is the table for the shop items. See below                                                 |
 
 ### Items
 
