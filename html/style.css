@@ -86,7 +86,7 @@
 }
 
 .menu-element.active{
-  background-color: #E2B604;
+  background-color: #1271be;
 }
 
 .menu-element:not(.active):hover{
@@ -94,7 +94,7 @@
 }
 
 .menu-element:not(.active):active{
-  background-color: #E2B604;
+  background-color: #1271be;
 }
 
 .main{
@@ -307,16 +307,16 @@
   cursor: pointer;
   border-radius: 14px;
   margin: 0;
-  background-color: #E2B604;
+  background-color: #1271be;
   transition: 0.2s background-color;
 }
 
 
 .buy-button:hover{
-  background-color: #f7cf31
+  background-color: #2389dd
 }
 .buy-button:active{
-  background-color: #E2B604
+  background-color: #1271be
 }
 
 
@@ -352,7 +352,7 @@
   width: 150px;
   font-size: 1.2rem;
   text-align: center;
-  border-bottom: 2px solid #E2B604;
+  border-bottom: 2px solid #1271be;
   border-radius: 4px;
   box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.1);
 }
