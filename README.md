@@ -1,6 +1,6 @@
 # K5 Shops
 
-![enter image description here](https://i.imgur.com/9HmrOw3.png)
+![K5 Shops](https://forum.cfx.re/uploads/default/original/4X/d/e/9/de939b927f894f9fab398149d0e9c0f624030488.jpeg)
 
 This is a **free** and **open** Fivem script that uses ESX Framework. The goal of this script is to implement different type of shops on your server, that can accepts multiple types of money. These shops can be used as a pawn shop, a store, or as a buyer only.
 
