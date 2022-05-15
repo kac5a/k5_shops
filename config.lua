@@ -61,7 +61,7 @@ Config.Shops = {
     ['burgershot'] = {
         shopName = "BurgerShot",
         sellJob = {'burgershot'}, -- The name of the jobs that can access this shop's sell option. Money goes to the society
-        coords = vector3(-1195.2030029297, -892.11022949219, 13.995241165161),
+        coords = vector3(-1198.8856201172, -882.81433105469, 13.348832130432),
         blip = {
             color = 75,
             sprite = 103,
@@ -69,8 +69,8 @@ Config.Shops = {
         },
         cashierPed = {
             ped = 'csb_burgerdrug',
-            coords = vector3(-1196.0991210938, -892.66174316406, 12.995241165161),
-            heading = 309.31665039063
+            coords = vector3(-1198.7757568359, -882.98065185547, 12.349102020264),
+            heading = 34.899082183838
         },
         paymentType = 1,
         items = {
@@ -92,7 +92,7 @@ Config.Shops = {
         paymentType = 3,
         sellOnly = true, -- If true, the shop doesn't have a buy tab.
         infinite = true, -- If true, the stop doesn't keep track of the storage, palyers can sell and buy as many items as they want.
-        coords = vector3(420.20349121094, -2063.9948730469, 22.132051467896 ),
+        coords = vector3(420.7734375, -2064.4226074219, 22.116249084473),
         shopName = "Drug Dealer",
         items = {
             ['joint'] = {
@@ -101,13 +101,13 @@ Config.Shops = {
                 maxCount = 50,
                 sellPrice = 150,
             },
-            ['coke2'] = {
-                label = "Cocain",
+            ['coke'] = {
+                label = "Cocaine",
                 buyPrice = 1000,
                 maxCount = 50,
                 sellPrice = 10,
             },
-            ['meth2'] = {
+            ['meth'] = {
                 label = "Meth",
                 buyPrice = 600,
                 maxCount = 50,
