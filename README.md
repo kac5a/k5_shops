@@ -6,7 +6,7 @@ This is a **free** and **open** Fivem script that uses ESX Framework. The goal o
 
 ## Demo
 
-Watch the demo here: [YouTube](https://www.youtube.com/watch?v=J2JIQmnKu_s)
+Watch the demo here: [YouTube](https://www.youtube.com/watch?v=9vnCYj48c_c)
 
 ## Dependencies
 
