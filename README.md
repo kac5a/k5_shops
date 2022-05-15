@@ -67,12 +67,12 @@ In the included config.lua, you will find 3 predefined shops that help you move 
 
 ### Items
 
-| Key       | Definition                                                                                                   |
-| --------- | ------------------------------------------------------------------------------------------------------------ |
-| label     | **(string)** The display name of the item                                                                    |
-| buyPrice  | **(number)** The amount of money players can buy from this shop                                              |
-| maxCount  | **(number)** Maximum amount of items the shop can store. Ignored if `infinite=true` in the shop's definition |
-| sellPrice | **(number)** The amount of money players can sell to this shop                                               |
+| Key       | Definition                                                                                                       |
+| --------- | ---------------------------------------------------------------------------------------------------------------- |
+| label     | **(string)** The display name of the item                                                                        |
+| buyPrice  | **(number)** The amount of money players can buy from this shop. If `nil`, the item won't show up in the by page |
+| maxCount  | **(number)** Maximum amount of items the shop can store. Ignored if `infinite=true` in the shop's definition     |
+| sellPrice | **(number)** The amount of money players can sell to this shop                                                   |
 
 ## Usage
 

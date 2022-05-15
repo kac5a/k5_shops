@@ -16,20 +16,22 @@ const setUpBuyPage = () => {
       return 0
     })
     .forEach((key, i) => {
-      $('.grid').append(
-        genCard(
-          i,
-          key,
-          data.items[key].label,
-          data.items[key].count,
-          data.items[key].maxCount,
-          data.items[key].buyPrice,
-          data.items[key].inventoryCount,
-          'buy',
-          data.infinite,
-          data.paymentType
+      if (data.items[key].buyPrice !== undefined) {
+        $('.grid').append(
+          genCard(
+            i,
+            key,
+            data.items[key].label,
+            data.items[key].count,
+            data.items[key].maxCount,
+            data.items[key].buyPrice,
+            data.items[key].inventoryCount,
+            'buy',
+            data.infinite,
+            data.paymentType
+          )
         )
-      )
+      }
     })
 
   getCartData()

@@ -33,7 +33,7 @@ Config.Shops = {
 
             ['lighter'] = {        -- Unique identifier of the product. This is the item id that you use in your database for the items. Images has to have the same name as this id.
                 label = "Lighter", -- Item label
-                buyPrice = 600,    -- The price players can buy this item
+                buyPrice = 600,    -- The price players can buy this item.
                 maxCount = 150,    -- Maximum amount the shop can store. If infinite=true, this number is ignored.
                 sellPrice = 200,   -- The price players can sell this item to the shop
             },
@@ -45,7 +45,7 @@ Config.Shops = {
             },
             ['phone'] = {
                 label = "Phone",
-                buyPrice = 500,
+                buyPrice = nil, -- If nil, the item won't show up in the buy page.
                 maxCount = 50,
                 sellPrice = 100,
             },
