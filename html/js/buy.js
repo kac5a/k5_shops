@@ -119,9 +119,12 @@ const setBuyButton = () => {
             price: cartData[key].buyPrice,
           }))
         let totalPrice = 0
-        Object.keys(cartData).forEach((key) => {
-          totalPrice += cartData[key].buyPrice * cartData[key].count
-        })
+        Object.keys(cartData)
+          .filter((key) => cartData[key].count > 0)
+          .forEach((key) => {
+            console.log(JSON.stringify(cartData[key]))
+            totalPrice += cartData[key].buyPrice * cartData[key].count
+          })
 
         if (payData.length) {
           $.post(
