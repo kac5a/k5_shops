@@ -90,7 +90,7 @@
 }
 
 .menu-element:not(.active):hover{
-  background-color: rgba(255, 255, 255, 0.164);
+  background-color: rgba(255, 82, 177, 0.3);
 }
 
 .menu-element:not(.active):active{
@@ -313,7 +313,7 @@
 
 
 .buy-button:hover{
-  background-color: #2389dd
+  background-color: #ff52b1
 }
 .buy-button:active{
   background-color: #1271be
@@ -378,6 +378,7 @@
   width: 700px;
   background-color: #fff;
   display: flex;
+  border-radius: 10px;
   flex-direction: column;
 }
 
@@ -386,6 +387,7 @@
   font-weight: bold;
   width: calc(100% - 30px);
   padding: 15px;
+  border-radius: 10px 10px 0 0;
   background-color: #1E1E1E;
   color: white;
 }
