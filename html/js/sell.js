@@ -15,6 +15,7 @@ const setUpSellPage = () => {
       return 0
     })
     .forEach((key, i) => {
+    if (data.items[key].sellPrice !== undefined) {
       $('.grid').append(
         genCard(
           i,
@@ -29,6 +30,7 @@ const setUpSellPage = () => {
           data.paymentType
         )
       )
+    }
     })
 
   getCartData()
