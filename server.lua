@@ -101,10 +101,10 @@ AddEventHandler("k5_shops:buyItems", function(playerId, data, account)
 	local shopItemCount = loadShop(data.shopName)
 
 	for k, v in pairs(data.payData) do
-		if xPlayer.canCarryItem(v.name, v.amount) then
-			xPlayer.removeAccountMoney(account, v.amount * v.price)
-			xPlayer.addInventoryItem(v.name, v.amount)
-			shopItemCount[v.name].count = shopItemCount[v.name].count - v.amount
+		if xPlayer.canCarryItem(v.name, tonumber(v.amount)) then
+			xPlayer.removeAccountMoney(account, tonumber(v.amount) * tonumber(v.price))
+			xPlayer.addInventoryItem(v.name, tonumber(v.amount))
+			shopItemCount[v.name].count = tonumber(shopItemCount[v.name].count) - tonumber(v.amount)
 		else
 			cantCarry = true
 		end
@@ -141,17 +141,17 @@ AddEventHandler("k5_shops:sellItems", function(data)
 		end
 		if Config.Shops[data.shopName].sellJob == nil then 
 			for k, v in pairs(data.payData) do
-				xPlayer.removeInventoryItem(v.name, v.amount)
-				xPlayer.addAccountMoney(account, v.amount * v.price)
-				shopItemCount[v.name].count = shopItemCount[v.name].count + v.amount
+				xPlayer.removeInventoryItem(v.name, tonumber(v.amount))
+				xPlayer.addAccountMoney(account, tonumber(v.amount) * tonumber(v.price))
+				shopItemCount[v.name].count = tonumber(shopItemCount[v.name].count) + tonumber(v.amount)
 			end
 		elseif isInJobs then
 			TriggerEvent("esx_addonaccount:getSharedAccount", "society_"..xPlayer.job.name, function(account)
 				if account ~= nil then
 					for k, v in pairs(data.payData) do
-						xPlayer.removeInventoryItem(v.name, v.amount)
-						account.addMoney(v.amount * v.price)
-						shopItemCount[v.name].count = shopItemCount[v.name].count + v.amount
+						xPlayer.removeInventoryItem(v.name, tonumber(v.amount))
+						account.addMoney(tonumber(v.amount) * tonumber(v.price))
+						shopItemCount[v.name].count = tonumber(shopItemCount[v.name].count) + tonumber(v.amount)
 					end
 				end
 			end)

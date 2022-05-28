@@ -47,7 +47,7 @@ const setUpBuyPage = () => {
 
     if (newValue >= 0) {
       $(`.product-price-input[data-product="${productName}"]`).val(newValue)
-      cartData[productName].count = newValue
+      cartData[productName].count = parseInt(newValue)
       $('.details').html(genCartBuy(cartData))
       setBuyButton()
     }
@@ -59,7 +59,7 @@ const setUpBuyPage = () => {
       let oldValue = cartData[productName].count
       let newValue = parseInt(oldValue) + 1
       $(`.product-price-input[data-product="${productName}"]`).val(newValue)
-      cartData[productName].count = newValue
+      cartData[productName].count = parseInt(newValue)
       $('.details').html(genCartBuy(cartData))
       setBuyButton()
     } else if (cartData[productName].dbCount > 0) {
@@ -69,7 +69,7 @@ const setUpBuyPage = () => {
 
       if (newValue <= cartData[productName].dbCount) {
         $(`.product-price-input[data-product="${productName}"]`).val(newValue)
-        cartData[productName].count = newValue
+        cartData[productName].count = parseInt(newValue)
         $('.details').html(genCartBuy(cartData))
         setBuyButton()
       }
@@ -86,7 +86,7 @@ const setUpBuyPage = () => {
         $(this).val(0)
       }
 
-      cartData[productName].count = $(this).val()
+      cartData[productName].count = parseInt($(this).val())
       $('.details').html(genCartBuy(cartData))
       setBuyButton()
     } else {
@@ -96,7 +96,7 @@ const setUpBuyPage = () => {
       if ($(this).val() < 0) {
         $(this).val(0)
       }
-      cartData[productName].count = $(this).val()
+      cartData[productName].count = parseInt($(this).val())
       $('.details').html(genCartBuy(cartData))
       setBuyButton()
     }
@@ -122,7 +122,6 @@ const setBuyButton = () => {
         Object.keys(cartData)
           .filter((key) => cartData[key].count > 0)
           .forEach((key) => {
-            console.log(JSON.stringify(cartData[key]))
             totalPrice += cartData[key].buyPrice * cartData[key].count
           })
 

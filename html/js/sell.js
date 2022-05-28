@@ -15,22 +15,22 @@ const setUpSellPage = () => {
       return 0
     })
     .forEach((key, i) => {
-    if (data.items[key].sellPrice !== undefined) {
-      $('.grid').append(
-        genCard(
-          i,
-          key,
-          data.items[key].label,
-          data.items[key].count,
-          data.items[key].maxCount,
-          data.items[key].sellPrice,
-          data.items[key].inventoryCount,
-          'sell',
-          data.infinite,
-          data.paymentType
+      if (data.items[key].sellPrice !== undefined) {
+        $('.grid').append(
+          genCard(
+            i,
+            key,
+            data.items[key].label,
+            data.items[key].count,
+            data.items[key].maxCount,
+            data.items[key].sellPrice,
+            data.items[key].inventoryCount,
+            'sell',
+            data.infinite,
+            data.paymentType
+          )
         )
-      )
-    }
+      }
     })
 
   getCartData()
@@ -43,10 +43,9 @@ const setUpSellPage = () => {
     let oldValue = cartData[productName].count
 
     let newValue = parseInt(oldValue) - 1
-    console.log(newValue)
     if (newValue >= 0) {
       $(`.product-price-input[data-product="${productName}"]`).val(newValue)
-      cartData[productName].count = newValue
+      cartData[productName].count = parseInt(newValue)
       $('.details').html(genCartSell(cartData))
       setSellButton()
     }
@@ -65,13 +64,13 @@ const setUpSellPage = () => {
           cartData[productName].max - cartData[productName].dbCount
         ) {
           $(`.product-price-input[data-product="${productName}"]`).val(newValue)
-          cartData[productName].count = newValue
+          cartData[productName].count = parseInt(newValue)
           $('.details').html(genCartSell(cartData))
           setSellButton()
         }
       } else {
         $(`.product-price-input[data-product="${productName}"]`).val(newValue)
-        cartData[productName].count = newValue
+        cartData[productName].count = parseInt(newValue)
         $('.details').html(genCartSell(cartData))
         setSellButton()
       }
@@ -94,7 +93,7 @@ const setUpSellPage = () => {
         $(this).val(cartData[productName].max - cartData[productName].dbCount)
       }
 
-      cartData[productName].count = $(this).val()
+      cartData[productName].count = parseInt($(this).val())
       $('.details').html(genCartSell(cartData))
       setSellButton()
       return
@@ -110,7 +109,7 @@ const setUpSellPage = () => {
     if ($(this).val() < 0) {
       $(this).val(0)
     }
-    cartData[productName].count = $(this).val()
+    cartData[productName].count = parseInt($(this).val())
     $('.details').html(genCartSell(cartData))
     setSellButton()
   })
