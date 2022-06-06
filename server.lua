@@ -96,73 +96,79 @@ end)
 
 RegisterServerEvent("k5_shops:buyItems")
 AddEventHandler("k5_shops:buyItems", function(playerId, data, account)
-	local xPlayer = ESX.GetPlayerFromId(playerId)
-	local cantCarry = false
-	local shopItemCount = loadShop(data.shopName)
+	if not Config.Shops[data.shopName].transaction then
+		Config.Shops[data.shopName].transaction = true
+		local xPlayer = ESX.GetPlayerFromId(playerId)
+		local cantCarry = false
+		local shopItemCount = loadShop(data.shopName)
 
-	for k, v in pairs(data.payData) do
-		if xPlayer.canCarryItem(v.name, tonumber(v.amount)) then
-			xPlayer.removeAccountMoney(account, tonumber(v.amount) * tonumber(v.price))
-			xPlayer.addInventoryItem(v.name, tonumber(v.amount))
-			shopItemCount[v.name].count = tonumber(shopItemCount[v.name].count) - tonumber(v.amount)
-		else
-			cantCarry = true
-		end
-	end
-
-	saveShop(data.shopName, shopItemCount)
-
-	if cantCarry then notifySv(playerId, Config.Locales[Config.Locale].CantCarry) end
-
-	TriggerClientEvent('k5_shops:closeUI', playerId)
-end)
-
-RegisterServerEvent("k5_shops:sellItems")
-AddEventHandler("k5_shops:sellItems", function(data)
-	local xPlayer = ESX.GetPlayerFromId(source)
-	local cantCarry = false
-	local shopItemCount = loadShop(data.shopName)
-	local account = nil
-	local isInJobs = false
-
-	if Config.Shops[data.shopName].sellJob ~= nil then
-		for k, v in pairs(Config.Shops[data.shopName].sellJob) do
-			if v == xPlayer.job.name then isInJobs = true end
-		end
-	end
-
-	if Config.Shops[data.shopName].sellJob == nil or isInJobs then
-		if data.paymentType == 1 then
-			account = "money"
-		elseif data.paymentType == 2 then
-			account = "bank"
-		elseif data.paymentType == 3 then
-			account = "black_money"
-		end
-		if Config.Shops[data.shopName].sellJob == nil then 
-			for k, v in pairs(data.payData) do
-				xPlayer.removeInventoryItem(v.name, tonumber(v.amount))
-				xPlayer.addAccountMoney(account, tonumber(v.amount) * tonumber(v.price))
-				shopItemCount[v.name].count = tonumber(shopItemCount[v.name].count) + tonumber(v.amount)
+		for k, v in pairs(data.payData) do
+			if xPlayer.canCarryItem(v.name, tonumber(v.amount)) then
+				xPlayer.removeAccountMoney(account, tonumber(v.amount) * tonumber(v.price))
+				xPlayer.addInventoryItem(v.name, tonumber(v.amount))
+				shopItemCount[v.name].count = tonumber(shopItemCount[v.name].count) - tonumber(v.amount)
+			else
+				cantCarry = true
 			end
-		elseif isInJobs then
-			TriggerEvent("esx_addonaccount:getSharedAccount", "society_"..xPlayer.job.name, function(account)
-				if account ~= nil then
-					for k, v in pairs(data.payData) do
-						xPlayer.removeInventoryItem(v.name, tonumber(v.amount))
-						account.addMoney(tonumber(v.amount) * tonumber(v.price))
-						shopItemCount[v.name].count = tonumber(shopItemCount[v.name].count) + tonumber(v.amount)
-					end
-				end
-			end)
 		end
 
 		saveShop(data.shopName, shopItemCount)
 
-		TriggerClientEvent('k5_shops:closeUI', source)
-	else
-		TriggerClientEvent('k5_shops:closeUI', source)
-		notifySv(source, Config.Locales[Config.Locale].IncorrectJob)
+		if cantCarry then notifySv(playerId, Config.Locales[Config.Locale].CantCarry) end
+
+		TriggerClientEvent('k5_shops:closeUI', playerId)
+	end
+end)
+
+RegisterServerEvent("k5_shops:sellItems")
+AddEventHandler("k5_shops:sellItems", function(data)
+	if not Config.Shops[data.shopName].transaction then
+		Config.Shops[data.shopName].transaction = true
+		local xPlayer = ESX.GetPlayerFromId(source)
+		local cantCarry = false
+		local shopItemCount = loadShop(data.shopName)
+		local account = nil
+		local isInJobs = false
+
+		if Config.Shops[data.shopName].sellJob ~= nil then
+			for k, v in pairs(Config.Shops[data.shopName].sellJob) do
+				if v == xPlayer.job.name then isInJobs = true end
+			end
+		end
+
+		if Config.Shops[data.shopName].sellJob == nil or isInJobs then
+			if data.paymentType == 1 then
+				account = "money"
+			elseif data.paymentType == 2 then
+				account = "bank"
+			elseif data.paymentType == 3 then
+				account = "black_money"
+			end
+			if Config.Shops[data.shopName].sellJob == nil then 
+				for k, v in pairs(data.payData) do
+					xPlayer.removeInventoryItem(v.name, tonumber(v.amount))
+					xPlayer.addAccountMoney(account, tonumber(v.amount) * tonumber(v.price))
+					shopItemCount[v.name].count = tonumber(shopItemCount[v.name].count) + tonumber(v.amount)
+				end
+			elseif isInJobs then
+				TriggerEvent("esx_addonaccount:getSharedAccount", "society_"..xPlayer.job.name, function(account)
+					if account ~= nil then
+						for k, v in pairs(data.payData) do
+							xPlayer.removeInventoryItem(v.name, tonumber(v.amount))
+							account.addMoney(tonumber(v.amount) * tonumber(v.price))
+							shopItemCount[v.name].count = tonumber(shopItemCount[v.name].count) + tonumber(v.amount)
+						end
+					end
+				end)
+			end
+
+			saveShop(data.shopName, shopItemCount)
+
+			TriggerClientEvent('k5_shops:closeUI', source)
+		else
+			TriggerClientEvent('k5_shops:closeUI', source)
+			notifySv(source, Config.Locales[Config.Locale].IncorrectJob)
+		end
 	end
 end)
 
@@ -174,4 +180,5 @@ end)
 RegisterServerEvent("k5_shops:unlockShop")
 AddEventHandler("k5_shops:unlockShop", function(shopName)
 	Config.Shops[shopName].locked = nil
+	Config.Shops[shopName].transaction = nil
 end)

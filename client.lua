@@ -118,7 +118,7 @@ function SpawnPed(data)
     FreezeEntityPosition(ped, true)
   
     table.insert(loadedPeds, ped)
-  end
+end
 
 RegisterNetEvent('k5_shops:resetUI')
 AddEventHandler('k5_shops:resetUI', function(shopName)
