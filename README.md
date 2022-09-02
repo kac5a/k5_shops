@@ -8,6 +8,11 @@ This is a **free** and **open** Fivem script that uses ESX Framework. The goal o
 
 Watch the demo here: [YouTube](https://www.youtube.com/watch?v=9vnCYj48c_c)
 
+## Help
+
+
+If you need any help, you can check out my [Discord](https://discord.com/invite/WmANgpdrgZ)
+
 ## Dependencies
 
 - es_extended
