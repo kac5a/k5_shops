@@ -1,5 +1,7 @@
 var data
 var cartData = {}
+var sellButtonLocked = false
+var buyButtonLocked = false
 
 const getCartData = () => {
   cartData = {}
@@ -28,6 +30,8 @@ window.addEventListener('message', function (event) {
     open(data)
   }
   if (msg.action == 'close') {
+    sellButtonLocked = false
+    buyButtonLocked = false
     hideAll()
   }
 })

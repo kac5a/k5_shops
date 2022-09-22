@@ -111,35 +111,38 @@ const setBuyButton = () => {
       locale[lang].buyTitle,
       locale[lang].buyQuestion,
       function () {
-        let payData = Object.keys(cartData)
-          .filter((key) => cartData[key].count > 0)
-          .map((key) => ({
-            name: key,
-            amount: cartData[key].count,
-            price: cartData[key].buyPrice,
-          }))
-        let totalPrice = 0
-        Object.keys(cartData)
-          .filter((key) => cartData[key].count > 0)
-          .forEach((key) => {
-            totalPrice += cartData[key].buyPrice * cartData[key].count
-          })
-
-        if (payData.length) {
-          $.post(
-            'https://k5_shops/action',
-            JSON.stringify({
-              action: 'buyItems',
-              data: {
-                shopName: data.shopId,
-                price: totalPrice,
-                paymentType: data.paymentType,
-                payData: payData,
-              },
+        if (!buyButtonLocked) {
+          buyButtonLocked = true
+          let payData = Object.keys(cartData)
+            .filter((key) => cartData[key].count > 0)
+            .map((key) => ({
+              name: key,
+              amount: cartData[key].count,
+              price: cartData[key].buyPrice,
+            }))
+          let totalPrice = 0
+          Object.keys(cartData)
+            .filter((key) => cartData[key].count > 0)
+            .forEach((key) => {
+              totalPrice += cartData[key].buyPrice * cartData[key].count
             })
-          )
-        } else {
-          openModal(locale[lang].error, locale[lang].emptyCart)
+
+          if (payData.length) {
+            $.post(
+              'https://k5_shops/action',
+              JSON.stringify({
+                action: 'buyItems',
+                data: {
+                  shopName: data.shopId,
+                  price: totalPrice,
+                  paymentType: data.paymentType,
+                  payData: payData,
+                },
+              })
+            )
+          } else {
+            openModal(locale[lang].error, locale[lang].emptyCart)
+          }
         }
       },
       closeModal,

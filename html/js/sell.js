@@ -123,27 +123,30 @@ const setSellButton = () => {
       locale[lang].sellTitle,
       locale[lang].sellQuestion,
       function () {
-        let payData = Object.keys(cartData)
-          .filter((key) => cartData[key].count > 0)
-          .map((key) => ({
-            name: key,
-            amount: cartData[key].count,
-            price: cartData[key].sellPrice,
-          }))
-        if (payData.length) {
-          $.post(
-            'https://k5_shops/action',
-            JSON.stringify({
-              action: 'sellItems',
-              data: {
-                shopName: data.shopId,
-                paymentType: data.paymentType,
-                payData: payData,
-              },
-            })
-          )
-        } else {
-          openModal(locale[lang].error, locale[lang].emptyCart)
+        if (!sellButtonLocked) {
+          sellButtonLocked = true
+          let payData = Object.keys(cartData)
+            .filter((key) => cartData[key].count > 0)
+            .map((key) => ({
+              name: key,
+              amount: cartData[key].count,
+              price: cartData[key].sellPrice,
+            }))
+          if (payData.length) {
+            $.post(
+              'https://k5_shops/action',
+              JSON.stringify({
+                action: 'sellItems',
+                data: {
+                  shopName: data.shopId,
+                  paymentType: data.paymentType,
+                  payData: payData,
+                },
+              })
+            )
+          } else {
+            openModal(locale[lang].error, locale[lang].emptyCart)
+          }
         }
       },
       closeModal,
