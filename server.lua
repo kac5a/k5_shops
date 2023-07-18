@@ -106,21 +106,21 @@ AddEventHandler("k5_shops:checkMoney", function(data)
        
     if data.paymentType == 1 then
         if xPlayer.getAccount('money').money < data.price then
-            notifySv(source, Config.Locales[Config.Locale].NotEnoughCash)
+            notifySv(xPlayer.source, Config.Locales[Config.Locale].NotEnoughCash)
             TriggerClientEvent('k5_shops:closeUI', source)
         else
             buyItems(source, data, 'money')    
         end
     elseif data.paymentType == 2 then
         if xPlayer.getAccount('bank').money < data.price then
-            notifySv(source, Config.Locales[Config.Locale].NotEnoughBank)
+            notifySv(xPlayer.source, Config.Locales[Config.Locale].NotEnoughBank)
             TriggerClientEvent('k5_shops:closeUI', source)
         else
              buyItems(source, data, 'bank')        
         end
     elseif data.paymentType == 3 then
         if xPlayer.getAccount('black_money').money < data.price then
-            notifySv(source, Config.Locales[Config.Locale].NotEnoughBlackMoney)
+            notifySv(xPlayer.source, Config.Locales[Config.Locale].NotEnoughBlackMoney)
             TriggerClientEvent('k5_shops:closeUI', source)
         else
             buyItems(source, data, 'black_money') 
