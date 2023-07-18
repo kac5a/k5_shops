@@ -67,57 +67,65 @@ function saveShop(shopName, data)
 	SaveResourceFile(GetCurrentResourceName(), "./data/"..shopName..".json", json.encode(data), -1)
 end
 
+local function buyItems(playerId, data, account) 
+    if not Config.Shops[data.shopName].transaction then 
+        local ox_inventory = exports.ox_inventory 
+        Config.Shops[data.shopName].transaction = true
+        local xPlayer = ESX.GetPlayerFromId(playerId) 
+        local cantCarry = false 
+        local shopItemCount = loadShop(data.shopName) 
+        local items = ox_inventory:Items()
+        local price = 0 
+        local weight = 0 
+
+        for k, v in pairs(data.payData) do 
+            price += tonumber(v.price) * tonumber(v.amount) 
+            print(v.name)
+            weight += items[v.name].weight * tonumber(v.amount)
+        end 
+
+        if ox_inventory:CanCarryWeight(playerId, weight) then 
+            xPlayer.removeAccountMoney(account, price) 
+
+            for k, v in pairs(data.payData) do 
+                ox_inventory:AddItem(playerId, v.name, v.amount) 
+                shopItemCount[v.name].count = tonumber(shopItemCount[v.name].count) - tonumber(v.amount)
+            end 
+        else 
+            notifySv(playerId, Config.Locales[Config.Locale].CantCarry)
+        end 
+
+        saveShop(data.shopName, shopItemCount)
+        TriggerClientEvent('k5_shops:closeUI', playerId)
+    end  
+end 
+
 RegisterServerEvent("k5_shops:checkMoney")
 AddEventHandler("k5_shops:checkMoney", function(data)
-	local xPlayer = ESX.GetPlayerFromId(source)
-	if data.paymentType == 1 then
-		if xPlayer.getAccount('money').money < data.price then
-			notifySv(source, Config.Locales[Config.Locale].NotEnoughCash)
-			TriggerClientEvent('k5_shops:closeUI', source)
-		else
-			TriggerEvent("k5_shops:buyItems", source, data, 'money')
-		end
-	elseif data.paymentType == 2 then
-		if xPlayer.getAccount('bank').money <data. price then
-			notifySv(source, Config.Locales[Config.Locale].NotEnoughBank)
-			TriggerClientEvent('k5_shops:closeUI', source)
-		else
-			TriggerEvent("k5_shops:buyItems", source, data, 'bank')
-		end
-	elseif data.paymentType == 3 then
-		if xPlayer.getAccount('black_money').money <data. price then
-			notifySv(source, Config.Locales[Config.Locale].NotEnoughBlackMoney)
-			TriggerClientEvent('k5_shops:closeUI', source)
-		else
-			TriggerEvent("k5_shops:buyItems", source, data, 'black_money')
-		end
-	end
-end)
-
-RegisterServerEvent("k5_shops:buyItems")
-AddEventHandler("k5_shops:buyItems", function(playerId, data, account)
-	if not Config.Shops[data.shopName].transaction then
-		Config.Shops[data.shopName].transaction = true
-		local xPlayer = ESX.GetPlayerFromId(playerId)
-		local cantCarry = false
-		local shopItemCount = loadShop(data.shopName)
-
-		for k, v in pairs(data.payData) do
-			if xPlayer.canCarryItem(v.name, tonumber(v.amount)) then
-				xPlayer.removeAccountMoney(account, tonumber(v.amount) * tonumber(v.price))
-				xPlayer.addInventoryItem(v.name, tonumber(v.amount))
-				shopItemCount[v.name].count = tonumber(shopItemCount[v.name].count) - tonumber(v.amount)
-			else
-				cantCarry = true
-			end
-		end
-
-		saveShop(data.shopName, shopItemCount)
-
-		if cantCarry then notifySv(playerId, Config.Locales[Config.Locale].CantCarry) end
-
-		TriggerClientEvent('k5_shops:closeUI', playerId)
-	end
+    local xPlayer = ESX.GetPlayerFromId(source)
+       
+    if data.paymentType == 1 then
+        if xPlayer.getAccount('money').money < data.price then
+            notifySv(source, Config.Locales[Config.Locale].NotEnoughCash)
+            TriggerClientEvent('k5_shops:closeUI', source)
+        else
+            buyItems(source, data, 'money')    
+        end
+    elseif data.paymentType == 2 then
+        if xPlayer.getAccount('bank').money < data.price then
+            notifySv(source, Config.Locales[Config.Locale].NotEnoughBank)
+            TriggerClientEvent('k5_shops:closeUI', source)
+        else
+             buyItems(source, data, 'bank')        
+        end
+    elseif data.paymentType == 3 then
+        if xPlayer.getAccount('black_money').money < data.price then
+            notifySv(source, Config.Locales[Config.Locale].NotEnoughBlackMoney)
+            TriggerClientEvent('k5_shops:closeUI', source)
+        else
+            buyItems(source, data, 'black_money') 
+        end
+    end
 end)
 
 RegisterServerEvent("k5_shops:sellItems")
