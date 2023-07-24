@@ -1,7 +1,7 @@
 -- Resource Metadata
 fx_version 'bodacious'
 games { 'gta5' }
-
+lua54 'yes'
 author 'kac5a'
 description 'BikeRental'
 version '1.0.0'
